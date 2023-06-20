@@ -1,0 +1,172 @@
+=> FastApi
+    ->It's a Python web-framework for building RESTful modern APIs.
+        -> It's fast in-terms of development
+            -> Included - serialization, data validation and documentation.
+        -> Its' fast in-terms of performance.
+        -> Light weight, embedded security, active community.
+    ->Development with fewer bugs.
+    ->Easy to use, learn, run and robust.
+    ->Complies to development standards.
+    ->FastApi handles the business logic for the webpage.
+    ->FastApi also handles the rendering of front-end web pages.
+
+=> Why a web framework?
+    -> While you may be able to write everything by yourself,
+    why reinvent the wheel?
+    -> Web-frameworks allow a simplified way of secure rapid developments
+    which includes years of developments from the framework devs.
+
+=> CRUD Operations & methods.
+    -> Create -> POST method
+    -> Read -> GET      
+    -> Update -> PUT
+    -> Delete/Destroy -> DELETE
+
+=> Uvicorn - Web server used to start fastApi applications.
+
+=> PATH PARAMETERS
+    -> path parameters are request parameters that have been attached to the URL.
+    -> They are usually defined as a way to find information based on location.
+    -> Used to dynamically pass data to the fastapi function.
+    -> The parameter are passed in the decorator path and passed to the function
+    as a parameter with exact same name.
+    -> Order matters -> Static URLs with similar formats should come before
+     dynamic parameterized functions.
+
+=> QUERY PARAMETERS
+    -> They are requests parameters that have been attached after a '?' in the
+    url.
+    -> They have 'name=value' pairs.
+    -> The parameter can be used in filtering data.
+
+=> POST REQUESTS
+    -> Used to create data.
+    -> Can have a body that has additional information that GET requests doesn't
+     have.
+     -> To add a body, import 'Body' from fastapi
+
+=> PUT REQUESTS
+    -> Used to update data
+    -> Put can have a body with additional information(like POST).
+
+=> PYDANTICS
+    -> Python library that is used for data modeling, data parsing and has
+    efficient error handling.
+    -> It's commonly used as a resource for data validation and how to handle
+    data coming to fastApi app.
+
+=> EXTRA DATA VALIDATIONS WITHIN FASTAPI
+    -> use of Path and Query validators.
+    -> This enforces the data entered are valid to the limits of the requests.
+    -> import both classes from fastapi -> Path and Query.
+    -> Path - validates path parameters.
+    -> Query - validates query parameters.
+
+=> STATUS CODES
+    -> The HTTP status codes are used to help the client(user) to understand
+    what happened on the server side application.
+    -> They are international standards on how a client/server should handle the
+     result of a request.
+    -> It allows everyone who sends a request to know whether their
+     submission was successful.
+
+    => CODES:
+        -> 1XX : Information response: request processing.
+        -> 2XX : Success: Request successfully complete.
+        -> 3XX : Redirection: further action must be completed.
+        -> 4XX : Client errors: an error caused by the client
+        -> 5XX : Server errors: Error in the server side.
+
+        => 2XX
+            -> 200: OK -> Standard response for successful get requests.
+            -> 201: OK -> Standard response for successful post/create of data.
+            -> 204: No Content -> Request is successful but no creation or
+            returning of data took place/needed. Mostly of PUT/DELETE requests.
+
+        => 4XX
+            -> 400: Bad Request -> Can't process request due to client error.
+            -> 401: Unauthorized -> Client doesn't have valid authentication for
+             target resource.
+            -> 422: Un-processable Entity -> Sematic errors in client request.
+
+        => 5XX
+            -> 500: Internal Server Error -> Generic Error Message, when an
+            unexpected issue on the server happened.
+
+=> STATUS CODES IMPLEMENTATION
+    => EXCEPTION ERRORS
+        -> Responses are returned/raised form fastapi HTTPException class/func
+            -> In the function call, input the status code and detail of the
+            error.
+    => Successful responses are returned in the path of the function form
+    starlette library status responses.
+
+
+=> DATABASES
+    -> Database is an organized collection of structured information of data,
+    which is stored in a computer system.
+    -> The data can easily be accessed or modified.
+    -> The data can be controlled and organized.
+    -> Many databases used structured query language(SQL) to modify and write
+    data.
+
+=> DATA
+    -> Data can be related to just any object.
+    -> Since data, on its own is just data. A database allows management of
+       this data
+    -> Database is organized in how data can be retrieved, stored and modified.
+    -> There are many types of DBMS(DataBase management systems)
+        => SQL DBMS (most common)
+            -> SQLite
+            -> MySQL
+            -> PSQL
+        => NOSQL DBMS
+            -> MongoDB and others
+
+=> SQL
+    -> Pronounced as S-Q-L or seeQuel.
+    -> Standard language for dealing with relational DBMS
+    -> Used to do CRUD operations.
+
+=> DATABASES ANALOGIES
+    => Foreign Key
+        -> A Foreign Key(FK) is a column within a relation database table that
+        provides a link between two separates tables.
+        -> A foreign key references a primary key of another table.
+        -> Most relational databases need foreign keys to be able to link tables
+         together to present data.
+
+=> JWT (JSON Web Token)
+    -> is a self-contained way to securely transmit data and information between
+     two parties using JSON Object.
+    -> JSON web tokens can be trusted because each JWT can be digitally signed,
+       which in return allows the server to know if the JWT has been changed.
+    -> JWT should be used when dealing with authorization.
+    -> JWT is a great way for information to be exchanged between the server and
+     the client.
+
+     => JSON Web Token Structure
+        -> is created from 3-separate parts separated by dots(.). This includes:
+            [aaaaaa.bbbbbb.cccccc]
+            -> Header: [a]
+            -> Payload: [b]
+            -> Signature: [c]
+        ==> Header
+            -> consists of 2-parts --> alg - algorithm for signing
+            and typ the token type.
+            -> The JWT header is hen encoded using Base64 to create the first
+            part of the JWT token
+        ==> Payload
+            -> Consists of actual data. The payload data contains claims.
+            3-types.
+                -> Registered - free to find, recommended but not mandatory.
+                    -> ISS, SUBject, EXPression time(expiry time)
+                -> Public
+                -> Private
+            -> It's then encoded to create the second part of the JWT
+        ==> Signature
+            -> Created by using the algorithm in the header to hash out the
+            encoded payload with a secret
+            -> The secret can be anything, but us saved somewhere on the server
+            that the client doesn't have access to.
+            -> It's the third and final part of the JWT.
