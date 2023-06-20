@@ -81,10 +81,11 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
         username: str = payload.get('sub')
         user_id: int = payload.get('id')
 
-        if not username and user_id:
+        if username and user_id:
+            return {'username': username, 'id': user_id}
+        else:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                                 detail='could not validate user.')
-        return {'username': username, 'id': user_id}
     except JWTError:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='could not validate user.')
@@ -126,7 +127,7 @@ async def create_user(db: db_dependency,
                                                     'already in use.')
 
 
-@router.post('/tokens', response_model=Token, status_code=status.HTTP_200_OK)
+@router.post('/token', response_model=Token, status_code=status.HTTP_200_OK)
 async def login_for_access_token(db: db_dependency, form_data: Annotated[
     OAuth2PasswordRequestForm, Depends()]):
     """
