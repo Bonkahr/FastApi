@@ -6,11 +6,19 @@ from fastapi import Depends
 
 from typing import Annotated
 
+# sqlite database
+# SQLALCHEMY_DATABASE_URL = 'sqlite:///./todo_app.db'
 
-SQLALCHEMY_DATABASE_URL = 'sqlite:///./todo_app.db'
+# postgres database
+SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:bonk3132@localhost' \
+                          '/todoApplicationDatabase'
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL,
-                       connect_args={'check_same_thread': False})
+# sqlite connection engine.
+# engine = create_engine(SQLALCHEMY_DATABASE_URL,
+#                        connect_args={'check_same_thread': False})
+
+# postgres connection engine
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -21,7 +29,8 @@ Base = declarative_base()
 def get_db():
     """
     This creates a database session instance, keeps it open until all the
-    selected operations are done. Then closes the database.
+    selected operations are done.
+    Then close the database.
     :return: None
     """
     db = SessionLocal()
