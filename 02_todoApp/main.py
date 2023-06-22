@@ -1,10 +1,28 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 import models
 from database import engine
 from routers import auth, todos, admin, user
 
 app = FastAPI()
+
+
+# Consume the API from react middlewares settings
+origins = [
+    "http://localhost:3000",
+    "localhost:3000"
+]
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
 
 # include admin routers
 app.include_router(admin.router)

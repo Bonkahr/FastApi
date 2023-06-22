@@ -155,7 +155,7 @@
             -> consists of 2-parts --> alg - algorithm for signing
             and typ the token type.
             -> The JWT header is hen encoded using Base64 to create the first
-            part of the JWT token
+            part of the JWT token.
         ==> Payload
             -> Consists of actual data. The payload data contains claims.
             3-types.
@@ -170,3 +170,14 @@
             -> The secret can be anything, but us saved somewhere on the server
             that the client doesn't have access to.
             -> It's the third and final part of the JWT.
+
+=> ALEMBIC
+    -> Lightweight database migration tool used in SQLAlchemy.
+    -> Migration tool allows us to plan, transfer and upgrade resources within
+    the database.
+    -> Alembic allows us to change a SQLAlchemy database after it has been
+    created.
+    -> Alembic provides the creation and invocation of change management scripts
+    -> This allows to be able to create migration environments and be able to
+    change data how you like.
+    -> Allows modifying the database tables in real time.
