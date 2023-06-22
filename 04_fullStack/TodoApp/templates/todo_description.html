@@ -1,0 +1,22 @@
+{% include 'layout.html' %}
+
+<div class="container">
+  <div class="card">
+    <div class="card-header text-info text-center">Your Todo</div>
+    <div class="card-body text-center">
+      <h3 class="card-title text-danger">{{todo.title}}</h3>
+      <h5 class="card-title">Priority: {{todo.priority}}</h5>
+      <h5 class="card-title">Complete: {{'Yes' if todo.complete else 'No'}}</h5>
+      <hr />
+      <div class="container border border-primary">
+        <p class="card-text">{{todo.description}}</p>
+      </div>
+      <hr />
+      <a
+        href="/todos/edit-todo/{{todo.id}}"
+        class="btn btn-primary"
+        >Edit</a
+      >
+    </div>
+  </div>
+</div>

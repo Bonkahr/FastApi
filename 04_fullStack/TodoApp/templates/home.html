@@ -9,76 +9,77 @@
         Information regarding stuff that needs to be complete
       </p>
 
-      <table class="table table-hover">
+      <table class="table table-hover text-left">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">Todo</th>
             <th scope="col">Info</th>
+            <th scope="col">Description</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
+          {% for todo in todos %}
+          {% if not todo.complete %}
           <tr class="pointer">
-            <td>1</td>
-            <td id="td1">Take out the trash</td>
+            <td>{{loop.index}}</td>
+            <td id="td1">{{todo.title}}</td>
+            <td class="" id="td1">{{todo.description}}</td>
             <td>
               <button
                 type="button"
                 class="btn btn-success"
+                onclick="window.location.href='complete/{{todo.id}}'"
               >
                 Complete
               </button>
               <button
                 type="button"
-                class="btn btn-danger"
+                class="btn btn-warning"
+                onclick="window.location.href='edit-todo/{{todo.id}}'"
               >
-                Delete
+                Edit
               </button>
-            </td>
-          </tr>
 
-          <tr class="pointer">
-            <td>2</td>
-            <td>Take out the trash</td>
-            <td>
               <button
                 type="button"
-                class="btn btn-success"
+                class="btn btn-info"
+                onclick="window.location.href='view-todo/{{todo.id}}'"
               >
-                Complete
-              </button>
-              <button
-                type="button"
-                class="btn btn-danger"
-              >
-                Delete
+                View
               </button>
             </td>
           </tr>
+          {% else %}
 
-          <tr class="pointer">
-            <td>3</td>
-            <td>Take out the trash</td>
+          <tr class="pointer alert alert-success">
+            <td>{{loop.index}}</td>
+            <td class="strike-through-td" id="td1">{{todo.title}}</td>
+            <td class="" id="td1">{{todo.description}}</td>
             <td>
               <button
                 type="button"
-                class="btn btn-success"
+                class="btn btn-warning"
+                onclick="window.location.href='complete/{{todo.id}}'"
               >
-                Complete
+                Undo
               </button>
               <button
                 type="button"
-                class="btn btn-danger"
+                class="btn btn-info"
+                onclick="window.location.href='view-todo/{{todo.id}}'"
               >
-                Delete
+                View
               </button>
             </td>
           </tr>
+          {% endif %}
+          {% endfor %}
         </tbody>
       </table>
 
       <a
-        href="#"
+        href="add-todo"
         class="btn btn-primary"
         >Add a new Todo!</a
       >
