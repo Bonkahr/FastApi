@@ -153,11 +153,28 @@ async def login_for_access_token(
 
 @router.get("/login", response_class=HTMLResponse)
 async def login(request: Request):
+    """Renders the login html page
+
+    Args:
+        request (Request): user request
+
+    Returns:
+        HTMLResponse: login html page
+    """
     return templates.TemplateResponse("login.html", {"request": request})
 
 
 @router.get('/profile', response_class=HTMLResponse)
 async def profile(request: Request, db: Session = Depends(get_db)):
+    """Get details of a logged in user and render the them to profile html
+
+    Args:
+        request (Request): User request
+        db (Session, optional): the database. Defaults to Depends(get_db).
+
+    Returns:
+        HTMLResponse: return the profile htm if the user is logged in else redirect to login page
+    """
     user = await get_current_user(request)
 
     if user:
@@ -208,6 +225,14 @@ async def login(request: Request, db: Session = Depends(get_db)):
 
 @router.get("/logout")
 async def logout(request: Request):
+    """LOgs out the user and deletes the access token
+
+    Args:
+        request (Request): user request
+
+    Returns:
+        HTMLResponse: login page with deleted cookie
+    """
     msg = "Logout successful"
     response = templates.TemplateResponse(
         "login.html", {"request": request, "msg": msg}
@@ -218,6 +243,14 @@ async def logout(request: Request):
 
 @router.get("/register", response_class=HTMLResponse)
 async def register(request: Request):
+    """Render the register html page
+
+    Args:
+        request (Request): the request
+
+    Returns:
+        HTMLResponse: the html page
+    """
     return templates.TemplateResponse("register.html", {"request": request})
 
 
@@ -291,6 +324,14 @@ async def regiter(
 
 @router.get("/change_password", response_class=HTMLResponse)
 async def password(request: Request):
+    """renders the password change html
+
+    Args:
+        request (Request): user request
+
+    Returns:
+        _HTMLResponse:the html oage
+    """
     user = await get_current_user(request)
     context = {"request": request, "user": user}
     return templates.TemplateResponse("change-password.html", context=context)
@@ -304,6 +345,18 @@ async def change_password(
     confirm_password: str = Form(...),
     db: Session = Depends(get_db),
 ):
+    """Gives a logged in user power to change his/her password
+
+    Args:
+        request (Request): user request
+        current_password (str, optional): current password. Defaults to Form(...).
+        new_password (str, optional): new password for the user. Defaults to Form(...).
+        confirm_password (str, optional): new password confirmation. Defaults to Form(...).
+        db (Session, optional): the database. Defaults to Depends(get_db).
+
+    Returns:
+        HTMLResponse: redirects user to login after a successiful password change
+    """
     user = await get_current_user(request)
 
     if user:
@@ -319,7 +372,7 @@ async def change_password(
                 msg = "Invalid password, password must have atleast 6 characters."
 
             if msg:
-                context = {"request": request, "msg": msg, "user": user, "color": "error"}
+                context = {"request": request, "msg": msg, "user": user}
                 return templates.TemplateResponse(
                     "change-password.html", context=context
                 )
@@ -329,7 +382,7 @@ async def change_password(
             msg = "Password changed successfully, login with your new password"
             db.add(user_model)
             db.commit()
-            context = {"request": request, "msg": msg, "user": user, "color": "alert"}
+            context = {"request": request, "msg": msg, "user": user}
 
             return templates.TemplateResponse(
                 "login.html", {"request": request, "msg": msg}
@@ -339,7 +392,6 @@ async def change_password(
             "request": request,
             "msg": "You have entred incorrect current password!",
             "user": user,
-            "color": "error",
         }
         return templates.TemplateResponse("change-password.html", context=context)
 
@@ -347,6 +399,5 @@ async def change_password(
         "request": request,
         "msg": "We have no idea how you landed here. You must be a hacker!",
         "user": user,
-        'color': 'error'
     }
     return templates.TemplateResponse("change-password.html", context=context)
