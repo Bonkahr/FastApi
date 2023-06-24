@@ -1,0 +1,25 @@
+=> GIT - its a version control system.
+=> GIT common commands:
+    -> git init      - Initializes a new, empty repository
+    -> git add .     - Adds files (from current directory) from non-staged area to a stagingGIT area
+    -> git commit -m 'message' - Moves staged files to commit
+    -> git checkout <commit #> - Opens up the commit with the commit number.
+    -> git log       - Shows committed snapshots
+
+=> GIT branch - a pointer to take a snapshot of change. Branches can be merged to other Branches
+    -> Used to isolate a feature development
+    -> Helps to streamline in linear development.
+    ==> Commands;
+        -> git branch <branch name> - create new isolated branch
+        -> git checkout branch <branch name> - chnage root to selected branch name
+        -> git switch branch <branch name>   - newer command of checkout (git version >= 2.23)
+        -> git merge  <branch name>     - merge a branch to the main/master/checked-out branch
+        -> git  branch -d   <branch name> - delete an already merged branch
+        -> git branch   - view all created branches in a repository
+
+=> GIT remote commands
+    -> git remote add origin <url>  - add to a remote repository
+    -> git push -u origin main - pushes code to the remote repository
+
+=> Add requirements file for python projects
+    -> pip freeze > requirements.txt
