@@ -66,7 +66,7 @@ def create_access_token(username: str, user_id: int, expiry_time: timedelta):
     Generate user access token using user's email, and id.
     :param username: User's username
     :param user_id: User's id
-    :param expiry_time: expiry time if the token
+    :param expiry_time: expiry time of the token
     :return: the generated token
     """
     encode = {'sub': username, 'id': user_id}
